@@ -1,0 +1,39 @@
+---
+- hosts: ws
+  become: 1
+  gather_facts: 1
+  ignore_errors: 1
+  vars: 
+    user_name: rita202
+    group: terraform
+  vars_files:
+    - variables.yml
+
+  tasks: 
+    - name: check server uptime
+      command: "{{my_command}}"
+      register: my_uptime
+
+    - name: lists directory
+      shell: ls
+    
+    - name: check the kernel version
+      command: uname -r
+      register: kernel_output
+   
+    - name: create a user
+      user: 
+        name: "{{user_name}}"
+   
+    - name: create group
+      group: 
+        name: "{{group}}"
+
+    - name: read data
+      debug:
+        var: my_uptime.stdout
+   
+    - name: read data
+      debug:
+        var: kernel_output.stdout
+    

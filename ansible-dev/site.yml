@@ -1,0 +1,7 @@
+---
+- hosts: wind
+  vars: 
+    my_url:
+    dest_path:
+  roles:
+    - link
